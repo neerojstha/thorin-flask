@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def about():
     return render_template("about.html", page_title="About", company=data)
 
 
-@app.route("/about/<member_names>")
+@app.route("/about/<member_name>")
 def about_member(member_name):
     member = {}
     with open("data/company.json", "r") as json_data:
@@ -31,8 +31,10 @@ def about_member(member_name):
 
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        print("Hello! Is anybody there?")
     return render_template("contact.html", page_title="Contact")
 
 
